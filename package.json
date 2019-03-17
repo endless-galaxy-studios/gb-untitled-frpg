@@ -1,0 +1,22 @@
+{
+  "name": "gb-untitled-frpg",
+  "version": "1.0.0",
+  "description": "Untitled Fantasy RPG for GameBoy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/endless-galaxy-studios/gb-untitled-frpg.git"
+  },
+  "author": "Yovarni Yearwood",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/endless-galaxy-studios/gb-untitled-frpg/issues"
+  },
+  "homepage": "https://github.com/endless-galaxy-studios/gb-untitled-frpg#readme",
+  "dependencies": {
+    "gbdkjs": "^2.1.4"
+  }
+}
