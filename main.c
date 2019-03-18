@@ -14,6 +14,11 @@ void initialization(){
 	NR50_REG = 0x77;	// Increase the volume to its max
 }
 
+void performDelay(UINT8 numberOfLoops){
+    UINT8 i;
+    for(i = 0; i < numberOfLoops; i++) wait_vbl_done();
+}
+
 void moveGameCharacter(gameCharacter* character, UINT8 x, UINT8 y){
     move_sprite(character->spriteID[0], x, y);
     move_sprite(character->spriteID[1], x + tileSize, y);
@@ -69,6 +74,24 @@ void main(){
     SHOW_SPRITES;
 
     while(1){
+        /*  @BUG I'm not sure why the below code works? Realistically, y + 2 
+            should make the sprite move UP, not DOWN, becuase math grid? LMAO.
+        */
+        if(joypad() & J_UP){
+            character.y -= 2;
+            moveGameCharacter(&character, character.x, character.y);
+        } else if(joypad() & J_DOWN){
+            character.y += 2;
+            moveGameCharacter(&character, character.x, character.y);
+        } 
         
+        if(joypad() & J_LEFT){
+            character.x -= 2;
+            moveGameCharacter(&character, character.x, character.y);
+        } else if(joypad() & J_RIGHT){
+            character.x += 2;
+            moveGameCharacter(&character, character.x, character.y);
+        } 
+        performDelay(5);
     }
 }
