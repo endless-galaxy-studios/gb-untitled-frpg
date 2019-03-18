@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "gamecharacter.h": "c"
+        "gamecharacter.h": "c",
+        "*": "c"
     }
 }

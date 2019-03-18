@@ -1,16 +1,24 @@
 #include <gb/gb.h>
 #include <stdio.h>
 #include "assets\sprites.c"
-#include "gameCharacter.h"
+#include "structures\gameCharacter.h"
 
+// Global Variables
 gameCharacter character;
-UBYTE spriteSize = 8;
+UBYTE tileSize = 8;
 
-void movegamecharacter(gameCharacter* character, UINT8 x, UINT8 y){
+void initialization(){
+    DISPLAY_ON;		    // Turn on the display
+	NR52_REG = 0x8F;	// Turn on the sound
+	NR51_REG = 0x11;	// Enable the sound channels
+	NR50_REG = 0x77;	// Increase the volume to its max
+}
+
+void moveGameCharacter(gameCharacter* character, UINT8 x, UINT8 y){
     move_sprite(character->spriteID[0], x, y);
-    move_sprite(character->spriteID[1], x + spriteSize, y);
-    move_sprite(character->spriteID[2], x, y + spriteSize);
-    move_sprite(character->spriteID[3], x + spriteSize, y + spriteSize);
+    move_sprite(character->spriteID[1], x + tileSize, y);
+    move_sprite(character->spriteID[2], x, y + tileSize);
+    move_sprite(character->spriteID[3], x + tileSize, y + tileSize);
 }
 
 void setupCharacter(){
@@ -43,7 +51,7 @@ void setupCharacter(){
     character.spriteID[2] = 2;
     character.spriteID[3] = 3;
 
-    movegamecharacter(&character, character.x, character.y);
+    moveGameCharacter(&character, character.x, character.y);
 }
 
 void main(){
@@ -63,11 +71,4 @@ void main(){
     while(1){
         
     }
-}
-
-void initialization(){
-    DISPLAY_ON;		    // Turn on the display
-	NR52_REG = 0x8F;	// Turn on the sound
-	NR51_REG = 0x11;	// Enable the sound channels
-	NR50_REG = 0x77;	// Increase the volume to its max
 }
