@@ -2,6 +2,7 @@
     "files.associations": {
         "gamecharacter.h": "c",
         "*": "c",
-        "gameobject.h": "c"
+        "gameobject.h": "c",
+        "stdio.h": "c"
     }
 }
