@@ -1,5 +1,5 @@
-*.lst
-*.o
-*.gb
-*.map
-*.sym
+bin/main.lst
+bin/main.o
+bin/rom/main.gb
+bin/rom/main.map
+bin/rom/main.sym
