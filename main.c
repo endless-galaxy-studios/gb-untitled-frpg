@@ -1,10 +1,11 @@
 #include <gb/gb.h>
 #include <stdio.h>
 #include "assets\sprites.c"
-#include "structures\gameCharacter.h"
+#include "structures\gameObject.h"
 
 // Global Variables
-gameCharacter character;
+gameObject character;
+//gameObject brickWall;
 UBYTE tileSize = 8;
 
 void initialization(){
@@ -19,7 +20,7 @@ void performDelay(UINT8 numberOfLoops){
     for(i = 0; i < numberOfLoops; i++) wait_vbl_done();
 }
 
-void moveGameCharacter(gameCharacter* character, UINT8 x, UINT8 y){
+void moveGameCharacter(gameObject* character, UINT8 x, UINT8 y){
     move_sprite(character->spriteID[0], x, y);
     move_sprite(character->spriteID[1], x + tileSize, y);
     move_sprite(character->spriteID[2], x, y + tileSize);
@@ -34,11 +35,19 @@ void setupCharacter(){
         z - Array to load tiles from
     */
     set_sprite_data(0, 4, characterSprite);
+    //set_sprite_data(4, 4, brickSprite);
 
+    // Character Parameters
     character.x = 24;
     character.y = 24;
     character.width = 16;
     character.height = 16;
+
+    // Brick Wall Parameters
+    /*brickWall.x = 48;
+    brickWall.y = 48;
+    brickWall.width = 16;
+    brickWall.height = 16;*/
 
     /*  set_sprite_tile(x, y)
         Creates sprite in memory
@@ -49,8 +58,13 @@ void setupCharacter(){
     set_sprite_tile(1, 2);
     set_sprite_tile(2, 1);
     set_sprite_tile(3, 3);
+
+    /*set_sprite_tile(4, 4);
+    set_sprite_tile(5, 6);
+    set_sprite_tile(6, 5);
+    set_sprite_tile(7, 7);*/
     
-    // load tiles into character struct
+    // load tiles into gameObject struct
     character.spriteID[0] = 0;
     character.spriteID[1] = 1;
     character.spriteID[2] = 2;
