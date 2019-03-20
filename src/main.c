@@ -121,7 +121,9 @@ void main(){
     moveGameCharacter(&currentSprite, currentSprite.x, currentSprite.y);  
 
     // Flag to show the sprites on-screen
+    HIDE_WIN;
     SHOW_SPRITES;
+    SHOW_BKG;
 
     while(1){
         // @TODO Offload these controls to controller.c
