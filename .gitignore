@@ -1,5 +1,6 @@
-bin/main.lst
-bin/main.o
-bin/rom/main.gb
-bin/rom/main.map
-bin/rom/main.sym
+
+*.sym
+*.map
+*.gb
+*.o
+*.lst
