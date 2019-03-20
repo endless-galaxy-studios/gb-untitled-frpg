@@ -1,5 +1,7 @@
 @echo off
 
+mkdir ..\graphics\sprites_c\temp\ 2>nul
+
 echo Switching to sprites_png directory...
 echo.
 cd ..\graphics\sprites_png
@@ -43,26 +45,12 @@ xcopy characterSprite_left2.c ..\ /q
 
 echo Deleting all temporary files...
 echo.
-del sprite_089.png
-del sprite_090.png
-del sprite_091.png
-del sprite_092.png
-del sprite_093.png
-del sprite_094.png
-del sprite_095.png
-del sprite_096.png
-del characterSprite_down1.c
-del characterSprite_down2.c
-del characterSprite_up1.c
-del characterSprite_up2.c
-del characterSprite_right1.c
-del characterSprite_right2.c
-del characterSprite_left1.c
-del characterSprite_left2.c
+cd ..\
+rmdir temp\ /Q /S
 
 echo Moving back to original directory...
 echo.
-cd ..\..\..\scripts
+cd ..\..\scripts
 
 echo All done!
 echo.
