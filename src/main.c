@@ -1,5 +1,5 @@
 #include <gb/gb.h>
-#include "src\setupSprite.c"
+#include "src\graphicSetup.c"
 
 UINT8 currentSpriteIndex = 1;
 gameObject currentSprite;
@@ -16,6 +16,7 @@ void performDelay(UINT8 numberOfLoops){
     for(i = 0; i < numberOfLoops; i++) wait_vbl_done();
 }
 
+// @TODO Offload to controller.c
 void checkInput(){
     switch(joypad()){
         case J_UP:
@@ -36,7 +37,7 @@ void checkInput(){
             }
 
             currentSprite.y -= 2;
-            moveGameCharacter(&currentSprite, currentSprite.x, currentSprite.y);
+            moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
             break;
 
         case J_DOWN:
@@ -57,7 +58,7 @@ void checkInput(){
             }
 
             currentSprite.y += 2;
-            moveGameCharacter(&currentSprite, currentSprite.x, currentSprite.y);
+            moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
             break;
 
         case J_LEFT:
@@ -78,7 +79,7 @@ void checkInput(){
             }
 
             currentSprite.x -= 2;
-            moveGameCharacter(&currentSprite, currentSprite.x, currentSprite.y);
+            moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
             break;
 
         case J_RIGHT:
@@ -99,7 +100,7 @@ void checkInput(){
             }
 
             currentSprite.x += 2;
-            moveGameCharacter(&currentSprite, currentSprite.x, currentSprite.y);
+            moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
             break;
     }
     
@@ -109,7 +110,8 @@ void checkInput(){
 void main(){
 
     initialization();
-    setupCharacter();
+    setupPlayerSprite();
+    setupBackground();
 
     currentSprite.spriteID[0] = 0;
     currentSprite.spriteID[1] = 1;
@@ -118,7 +120,7 @@ void main(){
 
     currentSprite.x = 24;
     currentSprite.y = 24;
-    moveGameCharacter(&currentSprite, currentSprite.x, currentSprite.y);  
+    moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);  
 
     // Flag to show the sprites on-screen
     HIDE_WIN;
@@ -126,9 +128,7 @@ void main(){
     SHOW_BKG;
 
     while(1){
-        // @TODO Offload these controls to controller.c
         checkInput();
-
     }
 }
 
