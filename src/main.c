@@ -111,7 +111,6 @@ void main(){
 
     initialization();
     setupPlayerSprite();
-    setupBackground();
 
     currentSprite.spriteID[0] = 0;
     currentSprite.spriteID[1] = 1;

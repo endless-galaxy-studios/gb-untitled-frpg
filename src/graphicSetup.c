@@ -1,7 +1,6 @@
 #include <gb/gb.h>
 #include "src\structures\gameObject.h"
 #include "assets\graphics\sprites_c\playerSprite.c"
-#include "assets\graphics\sprites_c\sampleTown.c"
 #include "src\controller.c"
 
 void setupPlayerSprite(){
@@ -29,8 +28,4 @@ void setupPlayerSprite(){
     set_sprite_tile(1, 2);
     set_sprite_tile(2, 1);
     set_sprite_tile(3, 3);
-}
-
-void setupBackground(){
-    set_bkg_tiles(0, 0, 288, 320, townTileMap);
 }
