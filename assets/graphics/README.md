@@ -2,23 +2,23 @@
 This folder contains all graphics, both .png files and .c files.
 
 ## Color Palette
-RGB: 224 248 208
-Hexadecimal: #E0F8D0
-Palette Color: Light Green
+### Light Green
+* RGB: 224 248 208
+* Hexadecimal: #E0F8D0
 
-RGB: 136  192 112
-Hexadecimal: #88C070
-Palette Color: Green
+### Green
+* RGB: 136  192 112
+* Hexadecimal: #88C070
 
-RGB: 52 104 86
-Hexadecimal: #346856
-Palette Color: Dark Green
-Usage: Background Color
+### Dark Green
+* RGB: 52 104 86
+* Hexadecimal: #346856
+* Usage: Background Color
 
-RGB: 8 24 32
-Hexadecimal: #081820
-Palette Color: Deep Dark Green
-Usage: Blacks
+### Deep Dark Green
+* RGB: 8 24 32
+* Hexadecimal: #081820
+* Usage: Blacks
 
 ## Programs Used
 - [Aseprite](https://www.aseprite.org/)
