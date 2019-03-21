@@ -16,8 +16,12 @@ void performDelay(UINT8 numberOfLoops){
     for(i = 0; i < numberOfLoops; i++) wait_vbl_done();
 }
 
-// @TODO Offload to controller.c
-void checkInput(){
+/*  @TODO Offload to controller.c
+    checkInput() returns UINT8 so that we can set a default sprite based on direction.
+*/
+UINT8 checkInput(){
+    UINT8 direction = 0;
+
     switch(joypad()){
         case J_UP:
             if(currentSpriteIndex == 0){
@@ -80,6 +84,8 @@ void checkInput(){
 
             currentSprite.x -= 2;
             moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
+
+            direction = 1;
             break;
 
         case J_RIGHT:
@@ -101,10 +107,13 @@ void checkInput(){
 
             currentSprite.x += 2;
             moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
+
+            direction = 2;
             break;
     }
-    
     performDelay(5);
+
+    return direction;
 }
 
 void main(){
@@ -127,7 +136,20 @@ void main(){
     SHOW_BKG;
 
     while(1){
-        checkInput();
+        UINT8 direction = checkInput();
+
+        if(direction == 1){
+            set_sprite_tile(0, 16);
+            set_sprite_tile(1, 18);
+            set_sprite_tile(2, 17);
+            set_sprite_tile(3, 19);
+        } else if(direction == 2){
+            set_sprite_tile(0, 20);
+            set_sprite_tile(1, 22);
+            set_sprite_tile(2, 21);
+            set_sprite_tile(3, 23);
+        }
+        
     }
 }
 
