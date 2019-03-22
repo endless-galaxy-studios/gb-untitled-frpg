@@ -2,6 +2,7 @@
 #include "src\graphicSetup.c"
 
 UINT8 currentSpriteIndex = 1;
+UINT8 direction = 0;
 gameObject currentSprite;
 
 void initialization(){
@@ -17,11 +18,10 @@ void performDelay(UINT8 numberOfLoops){
 }
 
 /*  @TODO Offload to controller.c
+    @TODO Sometimes the sprite moves without the animation
     checkInput() returns UINT8 so that we can set a default sprite based on direction.
 */
 UINT8 checkInput(){
-    UINT8 direction = 0;
-
     switch(joypad()){
         case J_UP:
             if(currentSpriteIndex == 0){
@@ -40,7 +40,7 @@ UINT8 checkInput(){
                 set_sprite_tile(3, 5);
             }
 
-            currentSprite.y -= 2;
+            currentSprite.y -= 3;
             moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
             break;
 
@@ -61,7 +61,7 @@ UINT8 checkInput(){
                 set_sprite_tile(3, 11);
             }
 
-            currentSprite.y += 2;
+            currentSprite.y += 3;
             moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
             break;
 
@@ -82,7 +82,7 @@ UINT8 checkInput(){
                 set_sprite_tile(3, 19);
             }
 
-            currentSprite.x -= 2;
+            currentSprite.x -= 3;
             moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
 
             direction = 1;
@@ -91,21 +91,21 @@ UINT8 checkInput(){
         case J_RIGHT:
             if(currentSpriteIndex == 0){
                 currentSpriteIndex = 1;
-                
-                set_sprite_tile(0, 20);
-                set_sprite_tile(1, 22);
-                set_sprite_tile(2, 21);
-                set_sprite_tile(3, 23);
-            } else {
-                currentSpriteIndex = 0;
 
                 set_sprite_tile(0, 24);
                 set_sprite_tile(1, 26);
                 set_sprite_tile(2, 25);
                 set_sprite_tile(3, 27);
+            } else {
+                currentSpriteIndex = 0;
+                
+                set_sprite_tile(0, 20);
+                set_sprite_tile(1, 22);
+                set_sprite_tile(2, 21);
+                set_sprite_tile(3, 23);
             }
 
-            currentSprite.x += 2;
+            currentSprite.x += 3;
             moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
 
             direction = 2;
@@ -120,7 +120,7 @@ void main(){
 
     initialization();
     setupPlayerSprite();
-
+    setupBackground();
     currentSprite.spriteID[0] = 0;
     currentSprite.spriteID[1] = 1;
     currentSprite.spriteID[2] = 2;
@@ -136,7 +136,7 @@ void main(){
     SHOW_BKG;
 
     while(1){
-        UINT8 direction = checkInput();
+        direction = checkInput();
 
         if(direction == 1){
             set_sprite_tile(0, 16);
@@ -149,7 +149,8 @@ void main(){
             set_sprite_tile(2, 21);
             set_sprite_tile(3, 23);
         }
-        
+
+        direction = 0;
     }
 }
 
