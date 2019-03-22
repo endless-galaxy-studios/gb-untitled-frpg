@@ -42,6 +42,7 @@ UINT8 checkInput(){
 
             currentSprite.y -= 3;
             moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
+            scroll_bkg(0, -1);
             break;
 
         case J_DOWN:
@@ -63,6 +64,7 @@ UINT8 checkInput(){
 
             currentSprite.y += 3;
             moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
+            scroll_bkg(0, 1);
             break;
 
         case J_LEFT:
@@ -84,6 +86,7 @@ UINT8 checkInput(){
 
             currentSprite.x -= 3;
             moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
+            scroll_bkg(-1, 0);
 
             direction = 1;
             break;
@@ -107,6 +110,7 @@ UINT8 checkInput(){
 
             currentSprite.x += 3;
             moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
+            scroll_bkg(1, 0);
 
             direction = 2;
             break;
@@ -126,8 +130,8 @@ void main(){
     currentSprite.spriteID[2] = 2;
     currentSprite.spriteID[3] = 3;
 
-    currentSprite.x = 24;
-    currentSprite.y = 24;
+    currentSprite.x = 78;
+    currentSprite.y = 126;
     moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);  
 
     // Flag to show the sprites on-screen
