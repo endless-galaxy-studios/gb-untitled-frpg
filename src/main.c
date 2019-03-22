@@ -40,7 +40,7 @@ UINT8 checkInput(){
                 set_sprite_tile(3, 5);
             }
 
-            currentSprite.y -= 3;
+            currentSprite.y -= 2;
             moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
             scroll_bkg(0, -1);
             break;
@@ -62,7 +62,7 @@ UINT8 checkInput(){
                 set_sprite_tile(3, 11);
             }
 
-            currentSprite.y += 3;
+            currentSprite.y += 2;
             moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
             scroll_bkg(0, 1);
             break;
@@ -84,7 +84,7 @@ UINT8 checkInput(){
                 set_sprite_tile(3, 19);
             }
 
-            currentSprite.x -= 3;
+            currentSprite.x -= 2;
             moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
             scroll_bkg(-1, 0);
 
@@ -108,16 +108,23 @@ UINT8 checkInput(){
                 set_sprite_tile(3, 23);
             }
 
-            currentSprite.x += 3;
+            currentSprite.x += 2;
             moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
             scroll_bkg(1, 0);
 
             direction = 2;
             break;
     }
-    performDelay(5);
+    performDelay(8);
 
     return direction;
+}
+
+void backgroundCollisiojn(UINT8 playerX, UINT8 playerY){
+    UINT16 indexTopLeftX, indexTopLeftY, tileIndex;
+
+    indexTopLeftX = playerX / 8;
+    indexTopLeftX = playerY / 8;
 }
 
 void main(){
@@ -125,13 +132,14 @@ void main(){
     initialization();
     setupPlayerSprite();
     setupBackground();
+
     currentSprite.spriteID[0] = 0;
     currentSprite.spriteID[1] = 1;
     currentSprite.spriteID[2] = 2;
     currentSprite.spriteID[3] = 3;
 
-    currentSprite.x = 78;
-    currentSprite.y = 126;
+    currentSprite.x = 70;
+    currentSprite.y = 133;
     moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);  
 
     // Flag to show the sprites on-screen

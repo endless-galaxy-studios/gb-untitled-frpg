@@ -34,4 +34,5 @@ void setupPlayerSprite(){
 void setupBackground(){
     set_bkg_data(0, PokeCenter_tile_count, PokeCenter_tile_data);
     set_bkg_tiles(0, 0, PokeCenter_tile_map_width, PokeCenter_tile_map_height, PokeCenter_map_data);
+    scroll_bkg(15, 25);
 }
