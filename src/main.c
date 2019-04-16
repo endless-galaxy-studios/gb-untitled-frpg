@@ -1,9 +1,11 @@
 #include <gb/gb.h>
-#include "src\graphicSetup.c"
+#include <src/graphicSetup.c>
 
 UINT8 currentSpriteIndex = 1;
 UINT8 direction = 0;
 gameObject currentSprite;
+
+BOOLEAN isMapScrollable = 1;
 
 void initialization(){
     DISPLAY_ON;		    // Turn on the display
@@ -17,114 +19,124 @@ void performDelay(UINT8 numberOfLoops){
     for(i = 0; i < numberOfLoops; i++) wait_vbl_done();
 }
 
+
+
 /*  @TODO Offload to controller.c
     @TODO Sometimes the sprite moves without the animation
     checkInput() returns UINT8 so that we can set a default sprite based on direction.
 */
 UINT8 checkInput(){
     switch(joypad()){
+        case J_A:
+            if(debug){
+                debug = 1;
+                setupBackground();
+                HIDE_WIN;
+                SHOW_BKG;
+            } else {
+                debug = 0;
+            }
         case J_UP:
-            if(currentSpriteIndex == 0){
+            if(canPlayerMove(currentSprite.x, currentSprite.y - 2)){
+                if(currentSpriteIndex == 0){
                 currentSpriteIndex = 1;
                 
                 set_sprite_tile(0, 0);
                 set_sprite_tile(1, 2);
                 set_sprite_tile(2, 1);
                 set_sprite_tile(3, 3);
-            } else {
+                } else {
                 currentSpriteIndex = 0;
 
                 set_sprite_tile(0, 0);
                 set_sprite_tile(1, 2);
                 set_sprite_tile(2, 4);
                 set_sprite_tile(3, 5);
-            }
+                }
 
-            currentSprite.y -= 2;
-            moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
-            scroll_bkg(0, -1);
-            break;
+                currentSprite.y -= 2;
+                moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
+                if(isMapScrollable) scroll_bkg(0, -1);
+                break;
+            }
 
         case J_DOWN:
-            if(currentSpriteIndex == 0){
-                currentSpriteIndex = 1;
-                
-                set_sprite_tile(0, 6);
-                set_sprite_tile(1, 8);
-                set_sprite_tile(2, 7);
-                set_sprite_tile(3, 9);
-            } else {
-                currentSpriteIndex = 0;
+            if(canPlayerMove(currentSprite.x, currentSprite.y + 2)){
+                if(currentSpriteIndex == 0){
+                    currentSpriteIndex = 1;
+                    
+                    set_sprite_tile(0, 6);
+                    set_sprite_tile(1, 8);
+                    set_sprite_tile(2, 7);
+                    set_sprite_tile(3, 9);
+                } else {
+                    currentSpriteIndex = 0;
 
-                set_sprite_tile(0, 6);
-                set_sprite_tile(1, 8);
-                set_sprite_tile(2, 10);
-                set_sprite_tile(3, 11);
+                    set_sprite_tile(0, 6);
+                    set_sprite_tile(1, 8);
+                    set_sprite_tile(2, 10);
+                    set_sprite_tile(3, 11);
+                }
+
+                currentSprite.y += 2;
+                moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
+                if(isMapScrollable) scroll_bkg(0, 1);
+                break;
             }
-
-            currentSprite.y += 2;
-            moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
-            scroll_bkg(0, 1);
-            break;
-
         case J_LEFT:
-            if(currentSpriteIndex == 0){
-                currentSpriteIndex = 1;
-                
-                set_sprite_tile(0, 12);
-                set_sprite_tile(1, 14);
-                set_sprite_tile(2, 13);
-                set_sprite_tile(3, 15);
-            } else {
-                currentSpriteIndex = 0;
+            if(canPlayerMove(currentSprite.x - 2, currentSprite.y)){
+                if(currentSpriteIndex == 0){
+                    currentSpriteIndex = 1;
+                    
+                    set_sprite_tile(0, 12);
+                    set_sprite_tile(1, 14);
+                    set_sprite_tile(2, 13);
+                    set_sprite_tile(3, 15);
+                } else {
+                    currentSpriteIndex = 0;
 
-                set_sprite_tile(0, 16);
-                set_sprite_tile(1, 18);
-                set_sprite_tile(2, 17);
-                set_sprite_tile(3, 19);
+                    set_sprite_tile(0, 16);
+                    set_sprite_tile(1, 18);
+                    set_sprite_tile(2, 17);
+                    set_sprite_tile(3, 19);
+                }
+
+                currentSprite.x -= 2;
+                moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
+                if(isMapScrollable) scroll_bkg(-1, 0);
+
+                direction = 1;
+                break;
             }
-
-            currentSprite.x -= 2;
-            moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
-            scroll_bkg(-1, 0);
-
-            direction = 1;
-            break;
-
         case J_RIGHT:
-            if(currentSpriteIndex == 0){
-                currentSpriteIndex = 1;
+            if(canPlayerMove(currentSprite.x + 2, currentSprite.y)){
+                if(currentSpriteIndex == 0){
+                    currentSpriteIndex = 1;
 
-                set_sprite_tile(0, 24);
-                set_sprite_tile(1, 26);
-                set_sprite_tile(2, 25);
-                set_sprite_tile(3, 27);
-            } else {
-                currentSpriteIndex = 0;
-                
-                set_sprite_tile(0, 20);
-                set_sprite_tile(1, 22);
-                set_sprite_tile(2, 21);
-                set_sprite_tile(3, 23);
+                    set_sprite_tile(0, 24);
+                    set_sprite_tile(1, 26);
+                    set_sprite_tile(2, 25);
+                    set_sprite_tile(3, 27);
+                } else {
+                    currentSpriteIndex = 0;
+                    
+                    set_sprite_tile(0, 20);
+                    set_sprite_tile(1, 22);
+                    set_sprite_tile(2, 21);
+                    set_sprite_tile(3, 23);
+                }
+
+                currentSprite.x += 2;
+                moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
+                if(isMapScrollable) scroll_bkg(1, 0);
+
+                direction = 2;
+                break;
             }
-
-            currentSprite.x += 2;
-            moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);
-            scroll_bkg(1, 0);
-
-            direction = 2;
-            break;
     }
     performDelay(8);
 
     return direction;
-}
-
-void backgroundCollisiojn(UINT8 playerX, UINT8 playerY){
-    UINT16 indexTopLeftX, indexTopLeftY, tileIndex;
-
-    indexTopLeftX = playerX / 8;
-    indexTopLeftX = playerY / 8;
 }
 
 void main(){
@@ -138,12 +150,13 @@ void main(){
     currentSprite.spriteID[2] = 2;
     currentSprite.spriteID[3] = 3;
 
-    currentSprite.x = 70;
-    currentSprite.y = 133;
+    //@TODO function to accept tile index
+    currentSprite.x = (8 * 8) + X_OFFSET;
+    currentSprite.y = (15 * 8) + Y_OFFSET;
     moveGameObject(&currentSprite, currentSprite.x, currentSprite.y);  
 
     // Flag to show the sprites on-screen
-    HIDE_WIN;
+    //HIDE_WIN;
     SHOW_SPRITES;
     SHOW_BKG;
 

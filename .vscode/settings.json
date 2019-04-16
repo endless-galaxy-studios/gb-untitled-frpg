@@ -3,6 +3,7 @@
         "gamecharacter.h": "c",
         "*": "c",
         "gameobject.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "pokemart.h": "c"
     }
 }

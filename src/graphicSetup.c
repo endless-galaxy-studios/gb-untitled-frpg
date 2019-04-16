@@ -1,8 +1,9 @@
 #include <gb/gb.h>
-#include "src\structures\gameObject.h"
-#include "assets\graphics\sprites_c\playerSprite.c"
-#include "assets\graphics\sprites_c\PokeCenter.h"
-#include "src\controller.c"
+#include "src/structures/gameObject.h"
+#include "assets/graphics/sprites_c/playerSprite.c"
+#include "assets/graphics/sprites_c/PokeCenter.h"
+#include "assets/graphics/sprites_c/PokeMart.h"
+#include "src/controller.c"
 
 void setupPlayerSprite(){
     /*  set_sprite_data(x, y, z)
@@ -32,7 +33,9 @@ void setupPlayerSprite(){
 }
 
 void setupBackground(){
-    set_bkg_data(0, PokeCenter_tile_count, PokeCenter_tile_data);
-    set_bkg_tiles(0, 0, PokeCenter_tile_map_width, PokeCenter_tile_map_height, PokeCenter_map_data);
-    scroll_bkg(15, 25);
+    //set_bkg_data(0, PokeCenter_tile_count, PokeCenter_tile_data);
+    //set_bkg_tiles(0, 0, PokeCenter_tile_map_width, PokeCenter_tile_map_height, PokeCenter_map_data);
+    set_bkg_data(0, PokeMart_tile_count, PokeMart_tile_data);
+    set_bkg_tiles(0, 0, PokeMart_tile_map_width, PokeMart_tile_map_height, PokeMart_map_data);
+    //scroll_bkg(15, 25);
 }

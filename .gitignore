@@ -4,5 +4,5 @@
 *.gb
 *.o
 *.lst
-.vscode/ipch/df02f69ba467ca5c/MAIN.ipch
 *.bin
+*.ipch
